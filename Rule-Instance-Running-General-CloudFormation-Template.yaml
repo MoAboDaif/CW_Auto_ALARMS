@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template for EventBridge RuleInstance-Running-General
+Resources:
+  Rule619910dd:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: Instance-Running-General
+      EventPattern: >-
+        {"source":["aws.ec2"],"detail-type":["EC2 Instance State-change
+        Notification"],"detail":{"state":["running"]}}
+      State: ENABLED
+      EventBusName: default
+      Targets:
+        - Id: Id780c7534-ca16-4d75-b653-f9fc2e7a3082
+          Arn:
+            Fn::Sub: >-
+              arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:CloudWatchAlarmCreation
+Parameters: {}
